@@ -24,6 +24,7 @@ if ("serviceWorker" in navigator) {
  document.addEventListener("DOMContentLoaded", function () {
     var urlParams = new URLSearchParams(window.location.search);
     var isFromSaved = urlParams.get("saved");
+    var id = Number(urlParams.get("id"));
  
     var btnSave = document.getElementById("save");
     var btnDelete = document.getElementById("delete");
@@ -33,7 +34,7 @@ if ("serviceWorker" in navigator) {
     var idParam = parsedUrl.searchParams.get("id");
  
     if (isFromSaved) {
-       // Hide fab jika dimuat dari indexeddb
+       // Hide fav jika dimuat dari indexeddb
        btnSave.style.display = 'none';
  
        // ambil artikel lalu tampilkan
@@ -43,10 +44,20 @@ if ("serviceWorker" in navigator) {
        var btnBack = document.getElementById('btnBack');
        btnBack.setAttribute("href", "./index.html#saved");
  
-    } else {
-       btnDelete.style.display = 'none';
-       var item = getTeamById();
-    }
+      } else {
+         btnDelete.style.display = 'none';
+         var item = getTeamById();
+      }
+       checkFavorite(id);
+
+      //Cek apakah tim masuk dalam fav, jika ya tombol love tidak akan muncul
+      checkFavorite(id).then((msg) => {
+         btnSave.style.display = "none";
+         btnDelete.style.display = "block";
+   }).catch((msg) => {
+         btnSave.style.display = "block";
+         btnDelete.style.display = "none";
+   });
  
     // Simpan ke indexeddb
     btnSave.onclick = function () {
@@ -60,6 +71,7 @@ if ("serviceWorker" in navigator) {
     btnDelete.onclick = function () {
        this.style.display = "none";
        deleteById(Number(idParam));
+       btnSave.style.display = "block"
     };
  
  });

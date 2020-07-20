@@ -73,3 +73,19 @@ const dbPromised = idb.open("bolaidb", 1, function (upgradeDb) {
  
        }).catch(error => alert(error.message));
  }
+
+   //cek team di indexed db
+ function checkFavorite(id) {
+   return new Promise(function (resolve, reject) {
+       dbPromised
+           .then(function (db) {
+               let tx = db.transaction("teams", "readonly");
+               let store = tx.objectStore("teams");
+               return store.get(id);
+           }).then(function (favorite) {
+               if (favorite !== undefined) {
+                   resolve(true);
+               }
+           });
+   });
+}
