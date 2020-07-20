@@ -1,3 +1,4 @@
+//pengaturan untuk scrollbar 
 let progress = document.getElementById('progressbar');
 let totalHeight = document.body.scrollHeight - window.innerHeight;
 window.onscroll = function(){
