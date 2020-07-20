@@ -2,6 +2,11 @@ body{
     background-color: black;
 }
 
+h4{
+  color: white;
+  text-align: center;
+}
+
 /*scrollbar effect*/
 ::-webkit-scrollbar{
     width: 0;
