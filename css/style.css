@@ -164,7 +164,7 @@ svg{
 .man-text-scroll.is-visible{
   opacity: 1;
   -webkit-transform: translateY(2deg);
-          transform: rotateX(25deg);
+          transform: rotateX(360deg);
 }
 
 /* text animation */

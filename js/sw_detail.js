@@ -20,15 +20,15 @@ if ("serviceWorker" in navigator) {
        })
     )
  }
- 
+
+
  document.addEventListener("DOMContentLoaded", function () {
     var urlParams = new URLSearchParams(window.location.search);
     var isFromSaved = urlParams.get("saved");
     var id = Number(urlParams.get("id"));
- 
     var btnSave = document.getElementById("save");
     var btnDelete = document.getElementById("delete");
- 
+   
     // Ambil url lalu ambil nilai dari id
     var parsedUrl = new URL(window.location.href);
     var idParam = parsedUrl.searchParams.get("id");
@@ -54,10 +54,13 @@ if ("serviceWorker" in navigator) {
       checkFavorite(id).then((msg) => {
          btnSave.style.display = "none";
          btnDelete.style.display = "block";
-   }).catch((msg) => {
+      }).catch((msg) => {
          btnSave.style.display = "block";
          btnDelete.style.display = "none";
-   });
+      });
+
+     
+     
  
     // Simpan ke indexeddb
     btnSave.onclick = function () {
