@@ -5,20 +5,14 @@ function noBack() {
     runPrompt = false; 
 } 
 
-// Wait for device API libraries to load
-    //
-    function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
+// menonaktifkan back button untuk mobile device
+    
+function onLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);}
 
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        // Register the event listener
-        document.addEventListener("backbutton", onBackKeyDown, false);
-    }
+function onDeviceReady() {
+        // mendafrakan event listener
+    document.addEventListener("backbutton", onBackKeyDown, false);}
 
-    // Handle the back button
-    //
-    function onBackKeyDown() {
-    }
+    // Mengatasi tombol back
+function onBackKeyDown() {}
