@@ -15,4 +15,4 @@ function onDeviceReady() {
     document.addEventListener("backbutton", onBackKeyDown, false);}
 
     // Mengatasi tombol back
-function onBackKeyDown() {}
+function onBackKeyDown() {};
