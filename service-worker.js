@@ -11,7 +11,6 @@ const urlsToCache = [
     "/js/api.js",
     "/js/db.js",
     "/js/idb.js",
-    "/js/materialize.min.js",
     "/js/nav.js",
     "/js/optionalscript.js",
     "/js/noback.js",
@@ -31,6 +30,13 @@ const urlsToCache = [
     "/icon/icon96.png",
     "/icon/icon192.png",
     "/icon/404.png",
+    "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/plugins/CSSPlugin.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/easing/EasePack.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenLite.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js",
+    "https://fonts.googleapis.com/icon?family=Material+Icons",
+    "https://fonts.googleapis.com/css?family=Rubik+Mono+One",
 ];
 
 self.addEventListener("install", function (event) {

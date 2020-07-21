@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background-color:#292841
 }
 
 h4{
@@ -174,7 +174,7 @@ svg{
     height: 100%;
     overflow: hidden;
     font-family: 'Rubik Mono One', sans-serif;
-    background: black;
+    background: #292841;
 }
   
   
@@ -290,7 +290,7 @@ svg{
 }
 
 .csidenav-background {
-  background-color: white;
+  background-color:black;
 }
 
 .cnav-text {
@@ -299,7 +299,7 @@ svg{
 }
 
 .csidenav-bottom {
-  background-color: rgba(223, 64, 24, 0.836);
+  margin-top: 50px;
 }
 
 

@@ -218,7 +218,7 @@ function checkNull(data) {
 }
 
 function checkImg(data) {
-  if (data == "" || data == null ) {
+  if (data == "" || data == null) {
     return "/icon/404.png";
   } else {
     return urlReplace(data);
