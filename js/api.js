@@ -46,8 +46,8 @@ function getTeams() {
     .then(function (data) {
       var teamHTML = '<h6 class="title-data">Daftar Tim Yang Tersedia</h6>';
       showTeam(data.teams, teamHTML);
-    }).catch(() => {
-      document.getElementById('body-content').innerHTML = "<h4>Upss...periksa koneksi internet anda.</h4>";
+    }).catch(error => {
+      console.log(error)
     });
 }
 
@@ -79,8 +79,8 @@ function getTeamById() {
         showTeamById(data);
         // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
         resolve(data);
-      }).catch((e) => {
-        document.getElementById('body-content').innerHTML = "<h4>Upss...periksa koneksi internet anda.</h4>";
+      }).catch(error => {
+        console.log(error)
       });
 
   });

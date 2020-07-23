@@ -1,5 +1,3 @@
-// console.log("hello");
-
 if ("serviceWorker" in navigator) {
    registerServiceWorker();
    // requestPermission();
@@ -7,19 +5,7 @@ if ("serviceWorker" in navigator) {
    console.log("ServiceWorker belum didukung browser ini.");
 }
 
-// Register service worker
-/* async function registerServiceWorker() {
-   return navigator.serviceWorker.register('service-worker.js')
-       .then(function (registration) {
-           console.log('Registrasi service worker berhasil.');
-           return registration;
-       })
-       .catch(function (err) {
-           console.error('Registrasi service worker gagal.', err);
-       });
-} */
-
-const applicationServerPublicKey = "BNvJpUy5Fr0JtnfYsxgZ-_psIh5-lTSwJBmxaD16Foh2InoTTw7tIMjVvm8qRfIHgs_8DCX72lgqevcnqoZo6uI";
+const applicationServerPublicKey = "BDKGAY-RztE1Q_KbW3qh6H_gwZR_ec33bj8faouiW9su5y3eki49pWA1PAg1jlxOPOKM0N5Lme8mjff8Bzb2cTU";
 
 // Register service worker
 function registerServiceWorker() {
@@ -66,52 +52,6 @@ function requestPermission() {
                    });
                });
            }
-
-           /* if ("serviceWorker" in navigator) {
-               registerServiceWorker();
-               requestPermission();
-           } else {
-               console.log("ServiceWorker belum didukung browser ini.");
-           } */
-
-           /* function requestPermission() {
-               if ('Notification' in window) {
-                   Notification.requestPermission().then(function (result) {
-                       if (result === "denied") {
-                           console.log("Fitur notifikasi tidak diijinkan.");
-                           return;
-                       } else if (result === "default") {
-                           console.error("Pengguna menutup kotak dialog permintaan ijin.");
-                           return;
-                       }
-
-                       // kita tambahkan kode untuk berlangganan pesan push melalui objek PushManager
-
-                       if (('PushManager' in window)) {
-                           navigator.serviceWorker.getRegistration().then(function (registration) {
-                               registration.pushManager.subscribe({
-                                   userVisibleOnly: true,
-                                   applicationServerKey: urlBase64ToUint8Array(
-                                       "BDKGAY-RztE1Q_KbW3qh6H_gwZR_ec33bj8faouiW9su5y3eki49pWA1PAg1jlxOPOKM0N5Lme8mjff8Bzb2cTU"
-                                   )
-                               }).then(function (subscribe) {
-                                   console.log('Berhasil melakukan subscribe dengan endpoint: ',
-                                       subscribe.endpoint);
-                                   console.log('Berhasil melakukan subscribe dengan p256dh key: ',
-                                       btoa(String.fromCharCode.apply(null, new Uint8Array(
-                                           subscribe.getKey('p256dh')))));
-                                   console.log('Berhasil melakukan subscribe dengan auth key: ',
-                                       btoa(String.fromCharCode.apply(
-                                           null, new Uint8Array(subscribe.getKey('auth')))));
-                               }).catch(function (e) {
-                                   console.error('Tidak dapat melakukan subscribe ', e.message);
-                               });
-                           });
-                       }
-
-                   });
-               }
-           } */
 
            /* tuliskan fungsi berikut di dalam tag <script> index.html untuk mengubah string menjadi Uint8Array */
            function urlBase64ToUint8Array(base64String) {

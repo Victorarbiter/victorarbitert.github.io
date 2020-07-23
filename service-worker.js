@@ -14,7 +14,7 @@ const urlsToCache = [
     "/js/nav.js",
     "/js/optionalscript.js",
     "/js/noback.js",
-    "/js/show-on-scrol.js",
+    "/js/show-on-scroll.js",
     "/js/scrollbar.js",
     "/js/sw_detail.js",
     "/js/sw_index.js",
