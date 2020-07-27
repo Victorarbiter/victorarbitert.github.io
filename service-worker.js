@@ -64,7 +64,7 @@ workbox.precaching.precacheAndRoute([
    '/push.js',
    {
       url: 'index.html',
-      revision: '4'
+      revision: '5'
    },
    {
       url: 'nav.html',
@@ -76,7 +76,7 @@ workbox.precaching.precacheAndRoute([
    },
    {
       url: 'manifest.json',
-      revision: '1'
+      revision: '3'
    },
    {
       url: 'css/style.css',
