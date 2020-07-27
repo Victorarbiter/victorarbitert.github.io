@@ -1,107 +1,157 @@
-const CACHE_NAME = "bolaidb";
-const urlsToCache = [
-    "/",
-    "/nav.html",
-    "/index.html",
-    "/team.html",
-    "/pages/saved.html",
-    "/pages/home.html",
-    "/css/materialize.min.css",
-    "/css/style.css",
-    "/js/api.js",
-    "/js/db.js",
-    "/js/idb.js",
-    "/js/nav.js",
-    "/js/optionalscript.js",
-    "/js/noback.js",
-    "/js/show-on-scroll.js",
-    "/js/scrollbar.js",
-    "/js/sw_detail.js",
-    "/js/sw_index.js",
-    "/js/text-animation.js",
-    "/manifest.json",
-    "/push.js",
-    "/icon/1.webp",
-    "/icon/2.webp",
-    "/icon/3.webp",
-    "/icon/4.webp",
-    "/icon/icon.png",
-    "/icon/icon72.png",
-    "/icon/icon96.png",
-    "/icon/icon192.png",
-    "/icon/404.png",
-    "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/plugins/CSSPlugin.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/easing/EasePack.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenLite.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js",
-    "https://fonts.googleapis.com/icon?family=Material+Icons",
-    "https://fonts.googleapis.com/css?family=Rubik+Mono+One",
-];
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
-self.addEventListener("install", function (event) {
-    self.skipWaiting();
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function (cache) {
-            return cache.addAll(urlsToCache);
-        }).catch(err => console.log(err))
-    );
+if (workbox)
+  console.log(`Workbox berhasil dimuat`);
+else
+  console.log(`Workbox gagal dimuat`);
+
+workbox.setConfig({
+   debug: false
 });
 
-self.addEventListener("activate", function (event) {
-    event.waitUntil(
-        caches.keys().then(function (cacheNames) {
-            return Promise.all(
-                cacheNames.map(function (cacheName) {
-                    if (cacheName !== CACHE_NAME) {
-                        console.log("ServiceWorker: cache " + cacheName + " dihapus");
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
+
+// set cache names
+workbox.core.setCacheNameDetails({
+   prefix: 'my',
+   suffix: 'v1',
+   precache: 'appshell',
 });
 
-self.addEventListener("fetch", function (event) {
-    const base_url = "https://api.football-data.org/v2/";
-    if (event.request.url.indexOf(base_url) > -1) {
-        event.respondWith(
-            caches.open(CACHE_NAME).then(function (cache) {
-                return fetch(event.request).then(function (response) {
-                    cache.put(event.request.url, response.clone());
-                    return response;
-                })
-            })
-        );
-    } else {
-        event.respondWith(
-            caches.match(event.request, {
-                'ignoreSearch': true
-            }).then(function (response) {
-                return response || fetch(event.request);
-            })
-        )
-    }
+// Menyimpan cache dari CSS Google Fonts
+workbox.routing.registerRoute(
+   /^https:\/\/fonts\.googleapis\.com\css?family=Rubik+Mono+One/,
+   /^https:\/\/fonts\.googleapis\.com\icon?family=Material+Icons/,
+   workbox.strategies.staleWhileRevalidate({
+     cacheName: 'google-fonts-stylesheets',
+   })
+ );
+
+ // Menyimpan cache dari CDNJS
+workbox.routing.registerRoute(
+   /^https:\/\/cdnjs\.cloudflare\.com\ajax\libs\jquery\/3.1.1\jquery.min.js/,
+   /^https:\/\/cdnjs\.cloudflare\.com\ajax\libs\gsap\/1.20.3\plugins\CSSPlugin.min.js/,
+   /^https:\/\/cdnjs\.cloudflare\.com\ajax\libs\gsap\/1.20.3\easing\EasePack.min.js/,
+   /^https:\/\/cdnjs\.cloudflare\.com\ajax\libs\gsap\/1.20.3\TweenLite.min.js/,
+   /^https:\/\/cdnjs\.cloudflare\.com\ajax\libs\materialize\/1.0.0\js\materialize.min.js/,
+   workbox.strategies.staleWhileRevalidate({
+     cacheName: 'CDNJS-cache',
+   })
+ );
+
+// Precaching all assets first
+// Automatic for event activite and fetch from cache
+workbox.precaching.precacheAndRoute([
+   'js/idb.js',
+   'css/materialize.min.css',
+   '/icon/1.webp',
+   '/icon/2.webp',
+   '/icon/3.webp',
+   '/icon/4.webp',
+   '/icon/icon.png',
+   '/icon/icon72.png',
+   '/icon/icon96.png',
+   '/icon/icon192.png',
+   '/icon/404.png',
+   '/icon/icon180.png',
+   '/icon/icon512.png',
+   '/js/optionalscript.js',
+   '/js/noback.js',
+   '/js/show-on-scroll.js',
+   '/js/scrollbar.js',
+   '/js/text-animation.js',
+   '/push.js',
+   {
+      url: 'index.html',
+      revision: '4'
+   },
+   {
+      url: 'nav.html',
+      revision: '1'
+   },
+   {
+      url: 'team.html',
+      revision: '1'
+   },
+   {
+      url: 'manifest.json',
+      revision: '1'
+   },
+   {
+      url: 'css/style.css',
+      revision: '1'
+   },
+   {
+      url: 'js/api.js',
+      revision: '1'
+   },
+   {
+      url: 'js/db.js',
+      revision: '1'
+   },
+   {
+      url: 'js/sw_detail.js',
+      revision: '1'
+   },
+   {
+      url: 'js/nav.js',
+      revision: '1'
+   },
+   {
+      url: 'js/sw_index.js',
+      revision: '2'
+   },
+   {
+      url: 'pages/home.html',
+      revision: '1'
+   },
+   {
+      url: 'pages/saved.html',
+      revision: '1'
+   }
+], {
+   // Ignore all URL parameters.
+   ignoreURLParametersMatching: [/.*/],
 });
 
+// Clean Up Old Precaches
+workbox.precaching.cleanupOutdatedCaches();
+
+// Using stale while revalidate (Data API)
+workbox.routing.registerRoute(
+   new RegExp("https://api.football-data.org/v2/.+"),
+   new workbox.strategies.StaleWhileRevalidate({
+      cacheName: 'data',
+      plugins: [
+         new workbox.expiration.Plugin({
+            // Max 100 entries
+            maxEntries: 100,
+            // Max 7 days caching
+            maxAgeSeconds: 7 * 24 * 60 * 60,
+         }),
+      ],
+   })
+);
+
+// Push event for notification
 self.addEventListener('push', function (event) {
-    let body;
-    if (event.data) {
-        body = event.data.text();
-    } else {
-        body = 'Push message no payload';
-    }
-    let options = {
-        body: body,
-        icon: 'icon/icon.png',
-        vibrate: [100, 50, 100],
-        data: {
-            dateOfArrival: Date.now(),
-            primaryKey: 1
-        }
-    };
-    event.waitUntil(
-        self.registration.showNotification('Push Notification', options)
-    );
+   var body;
+   if (event.data) {
+      body = event.data.text();
+   } else {
+      body = 'Pesan default.';
+   }
+   var options = {
+      body: body,
+      icon: '/icon/icon512.png',
+      vibrate: [100, 50, 100],
+      data: {
+         dateOfArrival: Date.now(),
+         primaryKey: 1
+      }
+   };
+   event.waitUntil(
+      self.registration.showNotification('Pemberitahuan!', options)
+   );
 });

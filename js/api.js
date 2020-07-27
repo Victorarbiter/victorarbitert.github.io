@@ -227,7 +227,7 @@ function checkImg(data) {
 
 function urlReplace(url) {
   if (url.match('^http://')) {
-    url = url.replace("Data Belum Tersedia")
+    url = url.replace(/^http:\/\//i, 'https://');
   }
   return url;
 }

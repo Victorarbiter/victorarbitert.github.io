@@ -212,9 +212,6 @@ const addPrompt = i => {
   }, 300);
 };
 
-
-
-
 resizePage();
 window.addEventListener('resize', resizePage);
 input.addEventListener('keyup', keyup);

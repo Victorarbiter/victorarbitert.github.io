@@ -1,9 +1,9 @@
 const dbPromised = idb.open("bolaidb", 1, function (upgradeDb) {
-    var articlesObjectStore = upgradeDb.createObjectStore("teams", {
+    var upgradeObjectStore = upgradeDb.createObjectStore("teams", {
        keyPath: 'id',
        autoIncrement: true
     });
-    articlesObjectStore.createIndex("name", "name", {
+    upgradeObjectStore.createIndex("name", "name", {
        unique: false
     });
  });
